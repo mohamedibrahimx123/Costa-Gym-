@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark text-white font-body;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-200;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gold rounded-full;
+  }
+}
+
+@layer components {
+  /* Gold shimmer text effect */
+  .text-gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      #B8960C 0%,
+      #D4AF37 25%,
+      #F0D060 50%,
+      #D4AF37 75%,
+      #B8960C 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Gold divider line */
+  .gold-divider {
+    @apply w-20 h-0.5 bg-gold mx-auto my-4;
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-20 px-4 md:px-8 lg:px-16;
+  }
+
+  /* Gold button */
+  .btn-gold {
+    @apply bg-gold text-black font-bold py-3 px-8 uppercase tracking-widest
+           transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]
+           active:scale-95 font-heading text-lg;
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply border-2 border-gold text-gold font-bold py-3 px-8 uppercase tracking-widest
+           transition-all duration-300 hover:bg-gold hover:text-black
+           active:scale-95 font-heading text-lg;
+  }
+
+  /* Card style */
+  .card-dark {
+    @apply bg-dark-200 border border-dark-400 rounded-sm;
+  }
+
+  /* Input style */
+  .input-dark {
+    @apply w-full bg-dark-300 border border-dark-400 text-white px-4 py-3
+           focus:border-gold focus:outline-none transition-colors duration-200
+           placeholder:text-gray-600 font-body;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply font-heading text-5xl md:text-6xl uppercase tracking-wider text-white;
+  }
+
+  /* Gold accent text */
+  .text-gold-accent {
+    @apply text-gold font-accent tracking-widest uppercase text-sm;
+  }
+
+  /* Noise overlay for depth */
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+/* Logo intro animation */
+@keyframes logoReveal {
+  0% { opacity: 0; transform: scale(0.5) rotate(-10deg); filter: blur(20px); }
+  60% { opacity: 1; transform: scale(1.05) rotate(2deg); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+}
+
+@keyframes logoGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+  50% { text-shadow: 0 0 60px rgba(212,175,55,0.8), 0 0 100px rgba(212,175,55,0.4); }
+}
+
+@keyframes panoramaSweep {
+  0% { transform: scale(1.3) translateX(-5%); }
+  100% { transform: scale(1) translateX(0%); }
+}
+
+.logo-reveal {
+  animation: logoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             logoGlow 2s ease-in-out 1.2s infinite;
+}
+
+.panorama-sweep {
+  animation: panoramaSweep 2s ease-out forwards;
+}
+
+/* Floating particles */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+.particle {
+  animation: float var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
